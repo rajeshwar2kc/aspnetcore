@@ -30,12 +30,7 @@ namespace Microsoft.AspNetCore.Razor.Design.IntegrationTests
                     throw new InvalidOperationException($"{destinationPath} should be empty");
                 }
 
-                var repositoryRoot = SearchUp(AppContext.BaseDirectory, "global.json");
-                if (repositoryRoot == null)
-                {
-                    throw new InvalidOperationException("Could not find repository root.");
-                }
-
+                var repositoryRoot = BuildVariables.RepoRoot;
                 var solutionRoot = Path.Combine(repositoryRoot, "src", "Razor");
                 var binariesRoot = Path.GetDirectoryName(typeof(ProjectDirectory).Assembly.Location);
 
@@ -126,6 +121,7 @@ namespace Microsoft.AspNetCore.Razor.Design.IntegrationTests
 $@"<Project>
   <PropertyGroup>
     <RepoRoot>{repoRoot}</RepoRoot>
+    <RazorSdkDirectoryRoot>{BuildVariables.RazorSdkDirectoryRoot}</RazorSdkDirectoryRoot>
     <BinariesRoot>{binariesRoot}</BinariesRoot>
   </PropertyGroup>
 </Project>";
